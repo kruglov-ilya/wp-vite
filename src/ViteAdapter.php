@@ -266,7 +266,7 @@ class ViteAdapter
 
 
             foreach ($chunk['css'] ?? [] as $css) {
-                $partialManifest = array_filter($manifest, fn ($item) => $item['file'] == $css);
+                $partialManifest = array_filter($manifest, fn ($item) => in_array($css, $item['css']) );
 
                 $partialManifestKeys = array_keys($partialManifest);
                 $partialManifestValues = array_values($partialManifest);
@@ -368,7 +368,7 @@ class ViteAdapter
      */
     protected function manifestPath(string $buildDirectory): string
     {
-        return $this->config->uploadsPath . '/' . $buildDirectory . '/' . $this->manifestFilename;
+        return $this->config->uploadsPath . '/' . $buildDirectory . '/.vite/' . $this->manifestFilename;
     }
 
     /**
